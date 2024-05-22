@@ -1,7 +1,7 @@
 const Home = () => {
     return (
         <>
-            <h1 className="page-title">Welcomde to Home Page</h1>
+            <h1 className="page-title">Welcome to Home Page!</h1>
             <h3>What Is Meant By Lorem Ipsum In Website?</h3>
             <p>
                 The word Lorem Ipsum is derived from the Latin word which means
