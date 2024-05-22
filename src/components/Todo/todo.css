@@ -1,0 +1,65 @@
+.todoContainer {
+    width: 500px;
+}
+.totalItem p {
+    text-align: left;
+    font-style: italic;
+    font-size: 12px;
+    color: #666;
+}
+.todoList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+.todoList li {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #3aafa9;
+    color: #fff;
+    box-shadow: 0 0 6px #3aafa9;
+}
+
+.todoList li:hover {
+    background-color: #2b807c;
+    box-shadow: 0 0 20px #2b807c;
+}
+.todoList li.todoCompleted {
+    background-color: #e2e2e2;
+    box-shadow: 0 0 6px #e2e2e2;
+    color: #666;
+}
+.todoList li.todoCompleted:hover {
+    background-color: #e2e2e2;
+    box-shadow: 0 0 20px #e2e2e2;
+    color: #666;
+}
+.list-grid {
+    display: flex;
+    flex-direction: column;
+}
+.list-grid.gridDetails p {
+    margin: 0 0 8px;
+}
+.createdBy {
+    font-size: 12px;
+    font-style: italic;
+}
+.todoInputChk {
+    margin-right: 10px;
+}
+.gridRemove {
+    text-align: right;
+    margin-left: auto;
+}
+.btnInput.toBtnRemove {
+    height: 30px;
+    width: 30px;
+}

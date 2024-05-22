@@ -1,0 +1,33 @@
+.post-list ul {
+    padding: 0;
+    margin: 0;
+    /* width: 50%; */
+}
+.post-list ul li {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    background-color: #3aafa9;
+    color: #fff;
+    box-shadow: 0 0 6px #3aafa9;
+}
+
+.post-list ul li > div {
+    padding: 20px;
+    text-transform: capitalize;
+}
+.post-list .postId {
+}
+.post-list .postTitle {
+    width: 30%;
+}
+.post-list .postBody {
+    width: 50%;
+}
+.post-list .postUserid {
+    padding: 5px 10px;
+    text-align: right;
+    margin-left: auto;
+    width: 10%;
+}
