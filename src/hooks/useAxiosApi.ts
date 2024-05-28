@@ -1,39 +1,30 @@
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useCallback, useEffect, useState } from "react";
 
-export interface apiResponse {
-    status: number;
-    statusText: string;
-    data: any;
-    error: any;
-    loading: boolean;
-}
-
-export const useFetchApi = (url: string): apiResponse => {
+export const useAxiosApi = <T>(url: string, params?: AxiosRequestConfig) => {
     const [status, setStatus] = useState<number>(0);
     const [statusText, setStatusText] = useState<string>("");
     const [data, setData] = useState<any>();
     const [error, setError] = useState<any>();
     const [loading, setLoading] = useState<boolean>(true);
 
-    const getFetchApiData = useCallback(async () => {
+    const getAxiosApiData = useCallback(async () => {
         try {
-            const response = await fetch(url);
-            const responseJson = await response.json();
-
+            setLoading(true);
+            const response: AxiosResponse<T> = await axios.get(url, params);
             setStatus(response.status);
             setStatusText(response.statusText);
-            setData(responseJson);
+            setData(response.data);
+            setLoading(false);
         } catch (error) {
             setError(error);
         } finally {
             setLoading(false);
         }
-    }, [url]);
-
+    }, [url, params]);
     useEffect(() => {
-        getFetchApiData();
+        getAxiosApiData();
         // eslint-disable-next-line
     }, []);
-
     return { status, statusText, data, error, loading };
 };

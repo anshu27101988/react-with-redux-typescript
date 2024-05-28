@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import "./product.css";
-import { apiResponse, useFetchApi } from "../../hooks/useFetchApi";
+import { apiResponse } from "../../hooks/useFetchApi";
 import { setProduct } from "../../reducers/ProductSlice";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { REACT_CONSTANTS } from "../../constants";
+import { useAxiosApi } from "../../hooks/useAxiosApi";
 
 const ProductList = () => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ const ProductList = () => {
     const dispatch = useAppDispatch();
 
     const apiEndpoint = `${REACT_CONSTANTS.BASE_URL.MOCK_API}/products`;
-    const apiResponse: apiResponse = useFetchApi(apiEndpoint);
+    const apiResponse: apiResponse = useAxiosApi(apiEndpoint);
     const { status, data, error, loading } = apiResponse;
 
     const checkForLeadingZero = (value: number) => {
@@ -31,7 +32,7 @@ const ProductList = () => {
             dateObj.getSeconds()
         )}`;
         /* Date converted to MM-DD-YYYY format */
-        return `${dateMDY} ${time} ||| ${date}`;
+        return `${dateMDY} ${time}`;
     };
 
     useEffect(() => {
@@ -43,7 +44,7 @@ const ProductList = () => {
         <>
             <h1>Product List</h1>
             {loading ? <p className="loading">Loading...</p> : ""}
-            {error ? <p className="error">Something wend wrong</p> : ""}
+            {error ? <p className="error">Something went wrong</p> : ""}
             <div className="totalItem">
                 <p>Total Products: {data?.length}</p>
             </div>
@@ -59,31 +60,39 @@ const ProductList = () => {
             </div>
             {products?.length > 0 ? (
                 <table>
-                    <tr>
-                        <th>ID</th>
-                        <th align="left">Title</th>
-                        <th align="left">Description</th>
-                        <th>Stock</th>
-                        <th>Discount</th>
-                        <th align="left">Created At</th>
-                        <th>Actions</th>
-                    </tr>
-                    {products?.map((product: any) => {
-                        return (
-                            <tr>
-                                <td align="center">{product.id}</td>
-                                <td>{product.title}</td>
-                                <td>{product.description}</td>
-                                <td align="center">{product.stock}</td>
-                                <td align="center">{product.discount} %</td>
-                                <td>{formatDate(product.createdAt)}</td>
-                                <th>
-                                    <button className="btnInput">Update</button>{" "}
-                                    <button className="btnInput">Delete</button>
-                                </th>
-                            </tr>
-                        );
-                    })}
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th align="left">Title</th>
+                            <th align="left">Description</th>
+                            <th>Stock</th>
+                            <th>Discount</th>
+                            <th align="left">Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {products?.map((product: any) => {
+                            return (
+                                <tr key={product.id}>
+                                    <td align="center">{product.id}</td>
+                                    <td>{product.title}</td>
+                                    <td>{product.description}</td>
+                                    <td align="center">{product.stock}</td>
+                                    <td align="center">{product.discount} %</td>
+                                    <td>{formatDate(product.createdAt)}</td>
+                                    <th>
+                                        <button className="btnInput">
+                                            Update
+                                        </button>{" "}
+                                        <button className="btnInput">
+                                            Delete
+                                        </button>
+                                    </th>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
                 </table>
             ) : (
                 <p className="error">No Products Found</p>
